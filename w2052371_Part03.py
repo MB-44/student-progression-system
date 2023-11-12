@@ -25,7 +25,6 @@ def progressionOutcome():
             if not (Pass%20==0 and Defer%20==0 and Fail%20==0): 
                 print("Out of range")
                 continue
-
             if (Pass + Defer + Fail) != 120 or len(volumeOfCredit)!=3:
                 print("Total incorrect")
                 continue
@@ -36,21 +35,16 @@ def progressionOutcome():
             elif ("not enough values to unpack" in str(valueError)) or ("too many values" in str(valueError)):
                 print("You can input only 3 values!")
             continue
-            
     
         if Pass == 120:
-            writeInAFile(f'Progress - {", ".join([str(credit) for credit in volumeOfCredit])}')
-            break 
+            return writeInAFile(f'Progress - {", ".join([str(credit) for credit in volumeOfCredit])}')
         elif (Pass+Defer) < Fail:
-            writeInAFile(f'Exclude - {",".join([str(credit) for credit in volumeOfCredit])}')
-            break 
+            return writeInAFile(f'Exclude - {",".join([str(credit) for credit in volumeOfCredit])}')
         elif Pass == 100 and (Defer==20 or Fail==20):
-            writeInAFile(f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}')
-            break
+            return writeInAFile(f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}')
         elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
-            writeInAFile(f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}')
-            break
-
+            return writeInAFile(f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}')
+            
 while True:
     progressionOutcome()
     userChoice = str(input("\nWould you like to enter another set of data ?\nEnter 'y' for Yes or 'q' to Quit and view results: ")).title()
