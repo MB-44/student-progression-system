@@ -5,9 +5,17 @@
 
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
-eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
+def writeInAFile(Outcome):
+    open('dataFile.txt', 'w').close()
+    try:
+        with open("dataFile.txt"):
+            with open("dataFile.txt","a") as dataFile:
+                dataFile.write(Outcome+"\n")
+    except IOError:
+        with open("dataFile.txt",'w') as dataFile:
+            dataFile.write(Outcome+"\n")
 
-def progressionOutcome(eachOutcomesCount):
+def progressionOutcome():
     while True:
         try:
             volumeOfCredit = [int(credit) for credit in (input("Enter Pass, Defer, Fail credit in order: ").split())]
@@ -18,32 +26,38 @@ def progressionOutcome(eachOutcomesCount):
                 print("Out of range")
                 continue
 
-            if (Pass + Defer + Fail) != 120 or len(volumeOfCredit) != 3:
+            if (Pass + Defer + Fail) != 120 or len(volumeOfCredit)!=3:
                 print("Total incorrect")
                 continue
-            
-        except ValueError:
-            print("Integer required")
+         
+        except ValueError as valueError:
+            if ("invalid literal for int()" in str(valueError)):
+                print("Integer required")
+            elif ("not enough values to unpack" in str(valueError)) or ("too many values" in str(valueError)):
+                print("You can input only 3 values!")
             continue
+            
     
         if Pass == 120:
-            eachOutcomesCount["Progress"] += 1
-            return f'Progress - {", ".join([str(credit) for credit in volumeOfCredit])}'
-
+            writeInAFile(f'Progress - {", ".join([str(credit) for credit in volumeOfCredit])}')
+            break 
         elif (Pass+Defer) < Fail:
-            eachOutcomesCount["Exclude"] += 1
-            return f'Exclude - {",".join(tuple(volumeOfCredit))}'
-
+            writeInAFile(f'Exclude - {",".join([str(credit) for credit in volumeOfCredit])}')
+            break 
         elif Pass == 100 and (Defer==20 or Fail==20):
-            eachOutcomesCount["Trailer"] += 1
-            return f'Progress (module trailer) - {",".join(tuple(volumeOfCredit))}'
-
+            writeInAFile(f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}')
+            break
         elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
-            eachOutcomesCount["Retriever"] += 1
-            return f'Module retriever - {",".join(tuple(volumeOfCredit))}'
+            writeInAFile(f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}')
+            break
 
 while True:
-    print(progressionOutcome(eachOutcomesCount))
+    progressionOutcome()
     userChoice = str(input("\nWould you like to enter another set of data ?\nEnter 'y' for Yes or 'q' to Quit and view results: ")).title()
     if userChoice != "Y":
         break
+
+with open("dataFile.txt","r") as dataFile:
+    data = dataFile.readlines()
+    for line in data:
+        print(line)

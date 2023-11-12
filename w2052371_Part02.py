@@ -22,8 +22,7 @@ def progressionOutcome(eachOutcomesCount):
                 print("Total incorrect")
                 continue
             
-        except ValueError:
-            print("Integer required")
+        except ValueError as e:
             continue
     
         if Pass == 120:
@@ -32,18 +31,19 @@ def progressionOutcome(eachOutcomesCount):
 
         elif (Pass+Defer) < Fail:
             eachOutcomesCount["Exclude"] += 1
-            return f'Exclude - {",".join(tuple(volumeOfCredit))}'
+            return f'Exclude - {",".join([str(credit) for credit in volumeOfCredit])}'
 
         elif Pass == 100 and (Defer==20 or Fail==20):
             eachOutcomesCount["Trailer"] += 1
-            return f'Progress (module trailer) - {",".join(tuple(volumeOfCredit))}'
+            return f'Progress (module trailer) - {",".join([str(credit) for credit in volumeOfCredit])}'
 
         elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
             eachOutcomesCount["Retriever"] += 1
-            return f'Module retriever - {",".join(tuple(volumeOfCredit))}'
+            return f'Module retriever - {",".join([str(credit) for credit in volumeOfCredit])}'
 
 while True:
-    print(progressionOutcome(eachOutcomesCount))
+    progressionOutcome(eachOutcomesCount)
     userChoice = str(input("\nWould you like to enter another set of data ?\nEnter 'y' for Yes or 'q' to Quit and view results: ")).title()
     if userChoice != "Y":
         break
+
