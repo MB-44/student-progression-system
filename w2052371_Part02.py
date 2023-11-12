@@ -11,13 +11,11 @@ def progressionOutcome(eachOutcomesCount):
     while True:
         try:
             volumeOfCredit = [int(credit) for credit in (input("Enter Pass, Defer, Fail credit in order: ").split())]
-            #volumeOfCredit = [int(credit) for credit in volumeOfCredit]
             Pass, Defer, Fail = volumeOfCredit[:]
 
             if not (Pass%20==0 and Defer%20==0 and Fail%20==0): 
                 print("Out of range")
                 continue
-
             if (Pass + Defer + Fail) != 120 or len(volumeOfCredit) != 3:
                 print("Total incorrect")
                 continue

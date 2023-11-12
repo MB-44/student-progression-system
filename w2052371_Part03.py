@@ -5,6 +5,7 @@
 
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
+# Part 03 -  Text File (extension)
 def writeInAFile(Outcome):
     open('dataFile.txt', 'w').close()
     try:
@@ -19,7 +20,6 @@ def progressionOutcome():
     while True:
         try:
             volumeOfCredit = [int(credit) for credit in (input("Enter Pass, Defer, Fail credit in order: ").split())]
-            #volumeOfCredit = [int(credit) for credit in volumeOfCredit]
             Pass, Defer, Fail = volumeOfCredit[:]
 
             if not (Pass%20==0 and Defer%20==0 and Fail%20==0): 
