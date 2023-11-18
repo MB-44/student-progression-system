@@ -23,12 +23,9 @@ def progressionOutcome(eachOutcomesCount):
                     print("Total incorrect")
                     continue
 
-            except ValueError as valueError:
-                if ("invalid literal for int()" in str(valueError)):
-                    print("Integer required")
-                elif ("not enough values to unpack" in str(valueError)) or ("too many values" in str(valueError)):
-                    print("You can input only 3 values!")
-                    continue
+            except:
+                print("Integer required")
+                continue
 
             if Pass == 120:
                 eachOutcomesCount["Progress"] += 1
