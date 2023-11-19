@@ -90,21 +90,6 @@ def histogram(eachOutcomesCount):
     
     yAxisLine = Line(Point(47,windowHeight-81), Point(windowWidth-120,windowHeight-81))
     yAxisLine.draw(window)
-    
-    # xLabel = Text(Point(50 + barWidth / 2, 370), "Progress")
-    # xLabel.draw(window)
-
-    # xLabel = Text(Point(50 + barWidth + spacing + barWidth / 2, 370), "Trailer")
-    # xLabel.draw(window)
-
-    # xLabel = Text(Point(50 + 2 * (barWidth + spacing) + barWidth / 2, 370), "Retriever")
-    # xLabel.draw(window)
-
-    # xLabel = Text(Point(50 + 3 * (barWidth + spacing) + barWidth / 2, 370), "Excluded")
-    # xLabel.draw(window)
-
-    # yAxisLine = Line(Point(47, 351), Point(380,351))
-    # yAxisLine.draw(window)
 
     window.getMouse()
     window.close()
