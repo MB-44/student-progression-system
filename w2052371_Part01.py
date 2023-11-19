@@ -19,8 +19,7 @@ def progressionOutcome(eachOutcomesCount):
 
                 if not (Pass%20==0 and Defer%20==0 and Fail%20==0):
                     print("Out of range")
-                    continue
-                
+                    continue                
                 if (Pass + Defer + Fail) != 120:
                     print("Total incorrect")
                     continue
@@ -79,10 +78,8 @@ def histogram(eachOutcomesCount):
     
     xLabels = list(eachOutcomesCount.keys())
     availableWidth = windowWidth - 2*barWidth
-    xLabelPositions = [
-        barWidth + (i*availableWidth)/3 for i in range(4)
-    ]
-
+    xLabelPositions = [barWidth + (i*availableWidth)/3 for i in range(4)]
+    
     for index, labelText in enumerate(xLabels):
         xLabel = Text(Point(xLabelPositions[i],windowHeight-60),labelText)
         xLabel.setSize(12), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a")
