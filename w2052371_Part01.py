@@ -43,22 +43,26 @@ def progressionOutcome(eachOutcomesCount):
                 return "Do not progress - Module retriever"
 
 
-def drawBar(window,x,y,barWidth,barHeight,color):
-    bar = Rectangle(Point(x,y), Point(x+barWidth,y-barHeight))
+def drawBar(window, x, y, barWidth, barHeight, color, value):
+    bar = Rectangle(Point(x, y), Point(x + barWidth, y - barHeight))
     bar.setFill(color)
     bar.draw(window)
 
+    valueText = Text(Point(x + barWidth / 2, y - barHeight - 10), str(value))
+    valueText.setSize(13), valueText.setStyle("bold")
+    valueText.draw(window)
+
 def histogram(eachOutcomesCount):
     values = list(eachOutcomesCount.values())
+    xLabels = list(eachOutcomesCount.keys())
     colors = ["#7FCCE5", "#5DA4D9", "#3B7ABD", "#235D9F"]
 
     maxValue =max(values)
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
-    barWidth, spacing, x = 80,30,50
+    barWidth = 80
 
     window = GraphWin("Histogram",windowWidth,windowHeight)
     
-    xLabels = list(eachOutcomesCount.keys())
     availableWidth = windowWidth - 2 * barWidth
     xLabelPositions = [barWidth + (i * availableWidth) / 3 for i in range(4)]
 
@@ -66,29 +70,19 @@ def histogram(eachOutcomesCount):
     title.setSize(16), title.setStyle("bold")
     title.draw(window)
     
-    totalMessage = Text(Point(windowWidth / 2, windowHeight - 30), f"{sum(values)} Total Outcomes!")
-    totalMessage.setSize(14)
+    totalMessage = Text(Point(windowWidth / 2, windowHeight - 20), f"{sum(values)} Total Outcomes!")
+    totalMessage.setSize(15), totalMessage.setStyle("bold")
     totalMessage.draw(window)
 
-    # for i,value in enumerate(values):
-    #     drawBar(window, x, windowHeight-80, barWidth, value*10,colors[i])
-    #     x += barWidth + spacing
-    
     for i, value in enumerate(values):
-        drawBar(window, xLabelPositions[i], windowHeight - 80, barWidth, value * 10, colors[i])
-
-    yTicks = [tick for tick in range(0, max(values) + 10, 10)]
-    for yTick in yTicks:
-        label = Text(Point(30, windowHeight - 80 - yTick * 10), str(yTick))
-        label.setSize(10)
-        label.draw(window)
+        drawBar(window, xLabelPositions[i] - barWidth/2, windowHeight - 80, barWidth, value * 10, colors[i], value)
 
     for index, labelText in enumerate(xLabels):
         xLabel = Text(Point(xLabelPositions[index], windowHeight - 60), labelText)
-        xLabel.setSize(12), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a")
+        xLabel.setSize(15), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a")
         xLabel.draw(window)
     
-    yAxisLine = Line(Point(xLabelPositions[0], windowHeight - 81), Point(xLabelPositions[-1] + barWidth, windowHeight - 81))
+    yAxisLine = Line(Point(xLabelPositions[0] - barWidth / 2, windowHeight - 81), Point(xLabelPositions[-1] + barWidth /2, windowHeight - 81))
     yAxisLine.draw(window)
 
     window.getMouse()
