@@ -44,18 +44,19 @@ def progressionOutcome(eachOutcomesCount):
 
 
 def drawBar(window, x, y, barWidth, barHeight, color, value):
-    bar = Rectangle(Point(x, y), Point(x + barWidth, y - barHeight))
-    bar.setFill(color)
-    bar.draw(window)
+    if value > 0:
+        bar = Rectangle(Point(x, y), Point(x + barWidth, y - barHeight))
+        bar.setFill(color)
+        bar.draw(window)
 
-    valueText = Text(Point(x + barWidth / 2, y - barHeight - 10), str(value))
-    valueText.setSize(13), valueText.setStyle("bold")
-    valueText.draw(window)
+        valueText = Text(Point(x + barWidth / 2, y - barHeight - 10), str(value))
+        valueText.setSize(13), valueText.setStyle("bold")
+        valueText.draw(window)
 
 def histogram(eachOutcomesCount):
     values = list(eachOutcomesCount.values())
     xLabels = list(eachOutcomesCount.keys())
-    colors = ["#7FCCE5", "#5DA4D9", "#3B7ABD", "#235D9F"]
+    colors = ["#CCCCCC", "#AED9E0", "#B7E4C7", "#FFD3E0"]
 
     maxValue =max(values)
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
@@ -67,7 +68,7 @@ def histogram(eachOutcomesCount):
     xLabelPositions = [barWidth + (i * availableWidth) / 3 for i in range(4)]
 
     title = Text(Point(120, 30),"Histogram Result")
-    title.setSize(16), title.setStyle("bold")
+    title.setSize(18), title.setStyle("bold")
     title.draw(window)
     
     totalMessage = Text(Point(windowWidth / 2, windowHeight - 20), f"{sum(values)} Total Outcomes!")
