@@ -8,12 +8,15 @@ from graphics import *
 
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
+
+# Part 01
 def progressionOutcome(eachOutcomesCount):
         while True:
             try:
                 Pass = int(input("Enter your credits at Pass: "))
                 Defer = int(input("Enter your credits at Defer: "))
                 Fail = int(input("Enter your credits at Fail: ")) 
+                tempList = [Pass, Defer, Fail]
 
                 if not (Pass%20==0 and Defer%20==0 and Fail%20==0):
                     print("Out of range")
@@ -25,23 +28,22 @@ def progressionOutcome(eachOutcomesCount):
             except:
                 print("Integer required")
                 continue
-
+            
             if Pass == 120:
                 eachOutcomesCount["Progress"] += 1
-                return "Progress"
+                return storedDataList.append(f'Progress - {", ".join([str(credit) for credit in tempList])}')
                 
             elif (Pass+Defer) < Fail:
                 eachOutcomesCount["Exclude"] += 1
-                return "Exclude"
+                return storedDataList.append(f'Exclude - {", ".join([str(credit) for credit in tempList])}')
 
             elif Pass == 100 and (Defer==20 or Fail==20):
                 eachOutcomesCount["Trailer"] += 1
-                return "Progress (module trailer)"
+                return storedDataList.append(f'Progress (module trailer) - {", ".join([str(credit) for credit in tempList])}')
 
             elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
                 eachOutcomesCount["Retriever"] += 1
-                return "Do not progress - Module retriever"
-
+                return storedDataList.append(f'Module retriever - {", ".join([str(credit) for credit in tempList])}')
 
 def drawBar(window, x, y, barWidth, barHeight, color, value):
     if value > 0:
@@ -89,13 +91,27 @@ def histogram(eachOutcomesCount):
     window.getMouse()
     window.close()
 
+# Part 02
+def storedData(storedDataList):
+    print("Part 2:")
+    for eachData in storedDataList:
+        print(eachData)
+
+
+
+
+# Main - Variables
 eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
+storedDataList = []
 
 while True:
-    print(progressionOutcome(eachOutcomesCount))
+    progressionOutcome(eachOutcomesCount)
     userChoice = str(input("\nWould you like to enter another set of data ?\nEnter for Yes or 'q' to Quit and view results: ")).title()
     if userChoice == "Q":
         break
 
 histogram(eachOutcomesCount)
+
+
+storedData(storedDataList)
 
