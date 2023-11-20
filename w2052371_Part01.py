@@ -71,8 +71,8 @@ def histogram(eachOutcomesCount):
     title.setSize(18), title.setStyle("bold")
     title.draw(window)
     
-    totalMessage = Text(Point(windowWidth / 2, windowHeight - 20), f"{sum(values)} Total Outcomes!")
-    totalMessage.setSize(15), totalMessage.setStyle("bold")
+    totalMessage = Text(Point(150, windowHeight - 25), f"{sum(values)} outcomes in total.")
+    totalMessage.setSize(16), totalMessage.setStyle("bold")
     totalMessage.draw(window)
 
     for i, value in enumerate(values):
