@@ -81,7 +81,7 @@ def histogram(eachOutcomesCount):
     xLabelPositions = [barWidth + (i*availableWidth)/3 for i in range(4)]
     
     for index, labelText in enumerate(xLabels):
-        xLabel = Text(Point(xLabelPositions[i],windowHeight-60),labelText)
+        xLabel = Text(Point(xLabelPositions[index],windowHeight-60),labelText)
         xLabel.setSize(12), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a")
         xLabel.draw(window)
     
