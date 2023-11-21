@@ -14,8 +14,7 @@ def progressionOutcome(eachOutcomesCount):
             try:
                 Pass = int(input("Enter your credits at Pass: "))
                 Defer = int(input("Enter your credits at Defer: "))
-                Fail = int(input("Enter your credits at Fail: ")) 
-                tempList = [Pass, Defer, Fail]
+                Fail = int(input("Enter your credits at Fail: "))
 
                 if not (Pass%20==0 and Defer%20==0 and Fail%20==0):
                     print("Out of range")
@@ -28,6 +27,8 @@ def progressionOutcome(eachOutcomesCount):
                 print("Integer required")
                 continue
             
+            tempList = [Pass, Defer, Fail]
+
             if Pass == 120:
                 eachOutcomesCount["Progress"] += 1
                 return storedDataList.append(f'Progress - {", ".join([str(credit) for credit in tempList])}')
