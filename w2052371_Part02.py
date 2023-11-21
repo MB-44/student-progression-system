@@ -7,6 +7,7 @@ print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
 eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
 
+# Part 02 
 def progressionOutcome(eachOutcomesCount):
     while True:
         try:
