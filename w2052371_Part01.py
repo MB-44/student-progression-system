@@ -8,8 +8,7 @@ from graphics import *
 
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
-
-# Part 01
+# Part 1 - Main Function
 def progressionOutcome(eachOutcomesCount):
         while True:
             try:
@@ -45,6 +44,7 @@ def progressionOutcome(eachOutcomesCount):
                 eachOutcomesCount["Retriever"] += 1
                 return storedDataList.append(f'Module retriever - {", ".join([str(credit) for credit in tempList])}')
 
+# Part 1 - draw the rectangle bars for histogram
 def drawBar(window, x, y, barWidth, barHeight, color, value):
     if value > 0:
         bar = Rectangle(Point(x, y), Point(x + barWidth, y - barHeight))
@@ -55,6 +55,7 @@ def drawBar(window, x, y, barWidth, barHeight, color, value):
         valueText.setSize(13), valueText.setStyle("bold")
         valueText.draw(window)
 
+# Part 1 - draw all the things for histogram without rectangle bars
 def histogram(eachOutcomesCount):
     values = list(eachOutcomesCount.values())
     xLabels = list(eachOutcomesCount.keys())
@@ -91,16 +92,30 @@ def histogram(eachOutcomesCount):
     window.getMouse()
     window.close()
 
-# Part 02
+# Part 02 - store the input data in a list & print out
 def storedData(storedDataList):
     print("Part 2:")
     for eachData in storedDataList:
         print(eachData)
 
+# Part 03 - input data will write in a file, and displayed after that
+def writeInAFile(storedDataList):
+    open('dataFile.txt', 'w').close()
+    for eachData in storedDataList:
+        try:
+            with open("dataFile.txt"):
+                with open("dataFile.txt","a") as dataFile:
+                    dataFile.write(eachData+"\n")
+        except IOError:
+            with open("dataFile.txt",'w') as dataFile:
+                dataFile.write(eachData+"\n")
+    
+    print("Part 3:")
+    with open('dataFile.txt','r') as dataFile:
+        linesOfData = dataFile.readlines()
+        for line in linesOfData:
+            print(line)
 
-
-
-# Main - Variables
 eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
 storedDataList = []
 
@@ -110,8 +125,12 @@ while True:
     if userChoice == "Q":
         break
 
+# Part 01
 histogram(eachOutcomesCount)
 
-
+# Part 02
 storedData(storedDataList)
+print()
 
+# Part 03
+writeInAFile(storedDataList)
