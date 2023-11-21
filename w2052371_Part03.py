@@ -16,6 +16,7 @@ def writeInAFile(Outcome):
         with open("dataFile.txt",'w') as dataFile:
             dataFile.write(Outcome+"\n")
 
+# Part 01
 def progressionOutcome():
     while True:
         try:
