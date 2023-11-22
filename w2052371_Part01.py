@@ -22,7 +22,6 @@ def progressionOutcome(eachOutcomesCount):
                 if (Pass + Defer + Fail) != 120:
                     print("Total incorrect")
                     continue
-
             except:
                 print("Integer required")
                 continue
@@ -62,9 +61,8 @@ def histogram(eachOutcomesCount):
     xLabels = list(eachOutcomesCount.keys())
     colors = ["#CCCCCC", "#AED9E0", "#B7E4C7", "#FFD3E0"]
 
-    maxValue =max(values)
+    maxValue,barWidth =max(values), 80
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
-    barWidth = 80
 
     window = GraphWin("Histogram",windowWidth,windowHeight)
     
