@@ -106,16 +106,16 @@ def writeInAFile(storedDataList):
         try:
             with open("dataFile.txt"):
                 with open("dataFile.txt","a") as dataFile:
-                    dataFile.write(eachData+"\n")
+                    dataFile.write(eachData.strip()+"\n")
         except IOError:
             with open("dataFile.txt",'w') as dataFile:
-                dataFile.write(eachData+"\n")
+                dataFile.write(eachData.strip()+"\n")
     
     print("Part 3:")
     with open('dataFile.txt','r') as dataFile:
         linesOfData = dataFile.readlines()
         for line in linesOfData:
-            print(line)
+            print(line.strip())
 
 eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
 storedDataList = []
