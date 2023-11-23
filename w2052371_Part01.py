@@ -8,17 +8,24 @@ from graphics import *
 
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
+
+# Part 1
+def rangeCheck(prompt):
+    while True:
+        credit = int(input(prompt))
+        if credit in range(0,121,20):
+            return credit
+        else:
+            print("Out of range")
+
 # Part 1 - Main Function
 def progressionOutcome(eachOutcomesCount):
         while True:
             try:
-                Pass = int(input("Enter your credits at Pass: "))
-                Defer = int(input("Enter your credits at Defer: "))
-                Fail = int(input("Enter your credits at Fail: "))
-
-                if not (Pass%20==0 and Defer%20==0 and Fail%20==0):
-                    print("Out of range")
-                    continue                
+                Pass = rangeCheck("Enter your credits at Pass: ")
+                Defer = rangeCheck("Enter your credits at Defer: ")
+                Fail = rangeCheck("Enter your credits at Fail: ")
+               
                 if (Pass + Defer + Fail) != 120:
                     print("Total incorrect")
                     continue
