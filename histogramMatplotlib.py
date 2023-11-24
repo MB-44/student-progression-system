@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd 
 
-from w2052371_Part01 import eachOutcomesCount as outcome
+from w2052371 import eachOutcomesCount as outcome
 
 xLabels = list(outcome.keys())
 yLabels = list(outcome.values())
