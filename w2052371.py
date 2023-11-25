@@ -12,9 +12,11 @@ print(" **** STUDENT PROGRESSION SOFTWARE ****")
 # Part 1
 def rangeCheck(prompt):
     while True:
-        credit = int(input(prompt))
-        if credit in range(0,121,20):
-            return credit
+        credit = input(prompt)
+        if credit.strip() == "":
+            print("please enter a value")
+        elif int(credit) in range(0,121,20):
+            return int(credit)
         else:
             print("Out of range")
 
