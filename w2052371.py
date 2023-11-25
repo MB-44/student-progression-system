@@ -8,7 +8,6 @@ from graphics import *
 
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
-
 # Part 1
 def rangeCheck(prompt):
     while True:
