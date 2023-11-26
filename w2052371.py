@@ -37,18 +37,22 @@ def progressionOutcome(eachOutcomesCount):
 
             if Pass == 120:
                 eachOutcomesCount["Progress"] += 1
+                print("Progress")
                 return storedDataList.append(f'Progress - {", ".join([str(credit) for credit in tempList])}')
                 
             elif (Pass+Defer) < Fail:
                 eachOutcomesCount["Exclude"] += 1
+                print("Exclude")
                 return storedDataList.append(f'Exclude - {", ".join([str(credit) for credit in tempList])}')
 
             elif Pass == 100 and (Defer==20 or Fail==20):
                 eachOutcomesCount["Trailer"] += 1
+                print("Progress (module trailer)")
                 return storedDataList.append(f'Progress (module trailer) - {", ".join([str(credit) for credit in tempList])}')
 
             elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
                 eachOutcomesCount["Retriever"] += 1
+                print("Module retriever")
                 return storedDataList.append(f'Module retriever - {", ".join([str(credit) for credit in tempList])}')
 
 # Part 1 - draw the rectangle bars for histogram
