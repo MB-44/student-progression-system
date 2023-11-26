@@ -67,7 +67,7 @@ def drawBar(window, x, y, barWidth, barHeight, color, value):
 def histogram(eachOutcomesCount):
     values = list(eachOutcomesCount.values())
     xLabels = list(eachOutcomesCount.keys())
-    colors = ["#CCCCCC", "#AED9E0", "#B7E4C7", "#FFD3E0"]
+    colors = ["#79db7c", "#2a782d", "#698729", "#e374c7"]
 
     maxValue,barWidth =max(values), 80
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
