@@ -11,27 +11,26 @@ print(" **** STUDENT PROGRESSION SOFTWARE ****")
 # Part 1
 def rangeCheck(prompt):
     while True:
-        credit = input(prompt)
-        if credit.strip() == "":
-            print("please enter a value")
-        elif int(credit) in range(0,121,20):
-            return int(credit)
-        else:
-            print("Out of range")
+        try:
+            credit = input(prompt)
+            if credit.strip() == "":
+                print("please enter a value")
+            elif int(credit) not in range(0,121,20):
+                print("Out of range")
+            else:
+                return int(credit)
+        except ValueError:
+            print("Integer required!")
 
 # Part 1 - Main Function
 def progressionOutcome(eachOutcomesCount):
         while True:
-            try:
-                Pass = rangeCheck("Enter your credits at Pass: ")
-                Defer = rangeCheck("Enter your credits at Defer: ")
-                Fail = rangeCheck("Enter your credits at Fail: ")
+            Pass = rangeCheck("Enter your credits at Pass: ")
+            Defer = rangeCheck("Enter your credits at Defer: ")
+            Fail = rangeCheck("Enter your credits at Fail: ")
                
-                if (Pass + Defer + Fail) != 120:
-                    print("Total incorrect")
-                    continue
-            except:
-                print("Integer required")
+            if (Pass + Defer + Fail) != 120:
+                print("Total incorrect")
                 continue
             
             tempList = [Pass, Defer, Fail]
