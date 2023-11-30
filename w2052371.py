@@ -1,4 +1,4 @@
-# # I declare that my work contains no examples of misconduct, such as plagiarism, or collusion
+# I declare that my work contains no examples of misconduct, such as plagiarism, or collusion
 # Any code taken from other sources is referenced within my code soluƟon.
 
 # Student ID: 20234004
@@ -9,15 +9,15 @@ from graphics import *
 print(" **** STUDENT PROGRESSION SOFTWARE ****")
 
 # Part 1
-def rangeCheck(prompt):
+def validation(prompt):
     while True:
         try:
             credit = input(prompt)
             if credit.strip() == "":
-                print("please enter a value")
+                print("Please enter a value")
             elif int(credit) not in range(0,121,20):
                 print("Out of range")
-            else:
+            else: 
                 return int(credit)
         except ValueError:
             print("Integer required!")
@@ -25,9 +25,9 @@ def rangeCheck(prompt):
 # Part 1 - Main Function
 def progressionOutcome(eachOutcomesCount):
         while True:
-            Pass = rangeCheck("Enter your credits at Pass: ")
-            Defer = rangeCheck("Enter your credits at Defer: ")
-            Fail = rangeCheck("Enter your credits at Fail: ")
+            Pass = validation("Enter your credits at Pass: ")
+            Defer = validation("Enter your credits at Defer: ")
+            Fail = validation("Enter your credits at Fail: ")
                
             if (Pass + Defer + Fail) != 120:
                 print("Total incorrect")
@@ -59,20 +59,17 @@ def progressionOutcome(eachOutcomesCount):
 def drawBar(window, x, y, barWidth, barHeight, color, value):
     if value > 0:
         bar = Rectangle(Point(x, y), Point(x + barWidth, y - barHeight))
-        bar.setFill(color)
-        bar.draw(window)
+        bar.setFill(color), bar.draw(window)
 
         valueText = Text(Point(x + barWidth / 2, y - barHeight - 10), str(value))
-        valueText.setSize(13), valueText.setStyle("bold")
-        valueText.draw(window)
+        valueText.setSize(13), valueText.setStyle("bold"), valueText.draw(window)
 
 # Part 1 - draw all the things for histogram without rectangle bars
 def histogram(eachOutcomesCount):
-    values = list(eachOutcomesCount.values())
-    xLabels = list(eachOutcomesCount.keys())
+    values, xLabels = list(eachOutcomesCount.values()), list(eachOutcomesCount.keys())
     colors = ["#79db7c", "#2a782d", "#698729", "#e374c7"]
 
-    maxValue,barWidth =max(values), 80
+    maxValue, barWidth = max(values), 80
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
 
     window = GraphWin("Histogram",windowWidth,windowHeight)
@@ -81,20 +78,17 @@ def histogram(eachOutcomesCount):
     xLabelPositions = [barWidth + (i * availableWidth) / 3 for i in range(4)]
 
     title = Text(Point(120, 30),"Histogram Result")
-    title.setSize(18), title.setStyle("bold")
-    title.draw(window)
+    title.setSize(18), title.setStyle("bold"),title.draw(window)
     
     totalMessage = Text(Point(150, windowHeight - 25), f"{sum(values)} outcomes in total.")
-    totalMessage.setSize(16), totalMessage.setStyle("bold")
-    totalMessage.draw(window)
+    totalMessage.setSize(16), totalMessage.setStyle("bold"),totalMessage.draw(window)
 
     for i, value in enumerate(values):
         drawBar(window, xLabelPositions[i] - barWidth/2, windowHeight - 80, barWidth, value * 10, colors[i], value)
 
     for index, labelText in enumerate(xLabels):
         xLabel = Text(Point(xLabelPositions[index], windowHeight - 60), labelText)
-        xLabel.setSize(15), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a")
-        xLabel.draw(window)
+        xLabel.setSize(15), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a"), xLabel.draw(window)
     
     yAxisLine = Line(Point(xLabelPositions[0] - barWidth / 2, windowHeight - 81), Point(xLabelPositions[-1] + barWidth /2, windowHeight - 81))
     yAxisLine.draw(window)
@@ -131,7 +125,7 @@ storedDataList = []
 
 while True:
     progressionOutcome(eachOutcomesCount)
-    userChoice = str(input("\nWould you like to enter another set of data ?\nEnter for Yes or 'q' to Quit and view results: ")).title()
+    userChoice = str(input("\nWould you like to enter another set of data ?\nEnter for Yes or 'q' to Quit and view results: ")).upper()
     if userChoice == "Q":
         break
 
