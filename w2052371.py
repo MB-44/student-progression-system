@@ -6,7 +6,12 @@
 
 from graphics import *
 
-print(" **** STUDENT PROGRESSION SOFTWARE ****")
+print(""" **** STUDENT PROGRESSION SOFTWARE ****\n--Enter 1 for STUDENT version, 2 for STAFF version--\n--If you are a staff member, Enter to continue program and 'q' to Quit and view results: """)
+
+def versionChoice():
+    if input("Select your version: ").strip().upper() == "1":
+        return "student"
+    return "staff"
 
 # Part 1
 def validation(prompt):
@@ -23,7 +28,7 @@ def validation(prompt):
             print("Integer required!")
 
 # Part 1 - Main Function
-def progressionOutcome(eachOutcomesCount):
+def progressionOutcome(eachOutcomesCount,version=None):
         while True:
             Pass = validation("Enter your credits at Pass: ")
             Defer = validation("Enter your credits at Defer: ")
@@ -32,28 +37,26 @@ def progressionOutcome(eachOutcomesCount):
             if (Pass + Defer + Fail) != 120:
                 print("Total incorrect")
                 continue
-            
             tempList = [Pass, Defer, Fail]
 
             if Pass == 120:
-                eachOutcomesCount["Progress"] += 1
-                print("Progress")
-                return storedDataList.append(f'Progress - {", ".join([str(credit) for credit in tempList])}')
-                
+                output = "Progress"
+
             elif (Pass+Defer) < Fail:
-                eachOutcomesCount["Exclude"] += 1
-                print("Exclude")
-                return storedDataList.append(f'Exclude - {", ".join([str(credit) for credit in tempList])}')
+                output = "Exclude"
 
             elif Pass == 100 and (Defer==20 or Fail==20):
-                eachOutcomesCount["Trailer"] += 1
-                print("Progress (module trailer)")
-                return storedDataList.append(f'Progress (module trailer) - {", ".join([str(credit) for credit in tempList])}')
+                output = "Trailer"
 
             elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
-                eachOutcomesCount["Retriever"] += 1
-                print("Module retriever")
-                return storedDataList.append(f'Module retriever - {", ".join([str(credit) for credit in tempList])}')
+                output = "Retriever"
+
+            print(output)
+            if version == "STUDENT":
+                break
+            eachOutcomesCount[output] += 1
+            return storedDataList.append(f'{output} - {", ".join([str(credit) for credit in tempList])}')
+
 
 # Part 1 - draw the rectangle bars for histogram
 def drawBar(window, x, y, barWidth, barHeight, color, value):
@@ -123,18 +126,21 @@ def writeInAFile(storedDataList):
 eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
 storedDataList = []
 
-while True:
-    progressionOutcome(eachOutcomesCount)
-    userChoice = str(input("\nWould you like to enter another set of data ?\nEnter for Yes or 'q' to Quit and view results: ")).upper()
-    if userChoice == "Q":
-        break
+if versionChoice().upper() == "STUDENT":
+    progressionOutcome(None,"STUDENT")
+else: 
+    while True:
+        progressionOutcome(eachOutcomesCount)
+        userChoice = str(input("\nWould you like to enter another set of data ?")).upper()
+        if userChoice == "Q":
+            break
 
-# Part 01
-histogram(eachOutcomesCount)
+    # Part 01
+    histogram(eachOutcomesCount)
 
-# Part 02
-storedData(storedDataList)
-print()
+    # Part 02
+    storedData(storedDataList)
+    print()
 
-# Part 03
-writeInAFile(storedDataList)
+    # Part 03
+    writeInAFile(storedDataList)
