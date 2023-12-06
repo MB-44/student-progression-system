@@ -48,7 +48,7 @@ def progressionOutcome(eachOutcomesCount,version=None):
             elif Pass == 100 and (Defer==20 or Fail==20):
                 output = "Trailer"
 
-            elif (Pass in [0,20,40,60,80]) and (Defer in [0,20,40,60,80,100,120]) and (Fail in [0,20,40,60]):
+            elif (Pass in range(0,80,20)) and (Defer in range(0,121,20)) and (Fail in range(0,61,20)):
                 output = "Retriever"
 
             print(output)
