@@ -37,27 +37,29 @@ def progressionOutcome(eachOutcomesCount,version=None):
             if (Pass + Defer + Fail) != 120:
                 print("Total incorrect")
                 continue
+            
             tempList = [Pass, Defer, Fail]
+            output = None
 
             if Pass == 120:
                 output = "Progress"
-
             elif (Pass+Defer) < Fail:
                 output = "Exclude"
-
             elif Pass == 100 and (Defer==20 or Fail==20):
                 output = "Trailer"
-
-            elif (Pass in range(0,80,20)) and (Defer in range(0,121,20)) and (Fail in range(0,61,20)):
+            elif (Pass in range(0,81,20)) and (Defer in range(0,121,20)) and (Fail in range(0,61,20)):
                 output = "Retriever"
-
-            print(output)
-            if version == "STUDENT":
-                break
             
-            eachOutcomesCount[output] += 1
-            return storedDataList.append(f'{output} - {", ".join([str(credit) for credit in tempList])}')
+            if output is not None:
+                print(output)
+                if version == "STUDENT":
+                    return
+                eachOutcomesCount[output] += 1
+                storedDataList.append(f'{output} - {", ".join([str(credit) for credit in tempList])}')
 
+            userChoice = str(input("\nWould you like to enter another set of data ?")).upper().strip()
+            if userChoice == "Q":
+                return
 
 # Part 1 - draw the rectangle bars for histogram
 def drawBar(window, x, y, barWidth, barHeight, color, value):
@@ -130,18 +132,15 @@ storedDataList = []
 if versionChoice().upper() == "STUDENT":
     progressionOutcome(None,"STUDENT")
 else: 
-    while True:
-        progressionOutcome(eachOutcomesCount)
-        userChoice = str(input("\nWould you like to enter another set of data ?")).upper()
-        if userChoice == "Q":
-            break
+    progressionOutcome(eachOutcomesCount)
+    
+# Part 01
+histogram(eachOutcomesCount)
 
-    # Part 01
-    histogram(eachOutcomesCount)
+# Part 02
+storedData(storedDataList)
 
-    # Part 02
-    storedData(storedDataList)
-    print()
+print()
 
-    # Part 03
-    writeInAFile(storedDataList)
+# Part 03
+writeInAFile(storedDataList)
