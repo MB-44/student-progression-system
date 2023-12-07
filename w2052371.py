@@ -134,13 +134,13 @@ if versionChoice().upper() == "STUDENT":
 else: 
     progressionOutcome(eachOutcomesCount)
     
-# Part 01
-histogram(eachOutcomesCount)
-
-# Part 02
-storedData(storedDataList)
-
-print()
-
-# Part 03
-writeInAFile(storedDataList)
+    # Part 01
+    histogram(eachOutcomesCount)
+    
+    # Part 02
+    storedData(storedDataList)
+    
+    print()
+    
+    # Part 03
+    writeInAFile(storedDataList)
