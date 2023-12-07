@@ -54,6 +54,7 @@ def progressionOutcome(eachOutcomesCount,version=None):
             print(output)
             if version == "STUDENT":
                 break
+            
             eachOutcomesCount[output] += 1
             return storedDataList.append(f'{output} - {", ".join([str(credit) for credit in tempList])}')
 
