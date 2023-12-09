@@ -8,12 +8,13 @@ from graphics import *
 
 print(""" **** STUDENT PROGRESSION SOFTWARE ****\n--Enter 1 for STUDENT version, 2 for STAFF version--\n--If you are a staff member, Enter to continue program and 'q' to Quit and view results: """)
 
+# function to get the version choice from the user
 def versionChoice():
     if input("Select your version: ").strip().upper() == "1":
         return "student"
     return "staff"
 
-# Part 1
+# Part 1 - function for input validation
 def validation(prompt):
     while True:
         try:
@@ -27,7 +28,7 @@ def validation(prompt):
         except ValueError:
             print("Integer required!")
 
-# Part 1 - Main Function
+# Part 1 - Main Function for progression outcome calculation
 def progressionOutcome(eachOutcomesCount,version=None):
         while True:
             Pass = validation("Enter your credits at Pass: ")
@@ -61,55 +62,67 @@ def progressionOutcome(eachOutcomesCount,version=None):
             if userChoice == "Q":
                 return
 
-# Part 1 - draw the rectangle bars for histogram
+# Part 1 - function to draw the rectangle bars for the histogram
 def drawBar(window, x, y, barWidth, barHeight, color, value):
     if value > 0:
+        # create a rect bar
         bar = Rectangle(Point(x, y), Point(x + barWidth, y - barHeight))
         bar.setFill(color), bar.draw(window)
 
+        # display the count above the bar
         valueText = Text(Point(x + barWidth / 2, y - barHeight - 10), str(value))
         valueText.setSize(13), valueText.setStyle("bold"), valueText.draw(window)
 
-# Part 1 - draw all the things for histogram without rectangle bars
+# Part 1 - without rect bars, function to draw the all the elements for the histogram
 def histogram(eachOutcomesCount):
+    # extract the values & labels 4m the dictionary
     values, xLabels = list(eachOutcomesCount.values()), list(eachOutcomesCount.keys())
     colors = ["#79db7c", "#2a782d", "#698729", "#e374c7"]
 
+    # calculate necessary dimensions for win, based on the highest bar
     maxValue, barWidth = max(values), 80
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
 
     window = GraphWin("Histogram",windowWidth,windowHeight)
-    
+
+    # calculate positions for the x axis labels   
     availableWidth = windowWidth - 2 * barWidth
     xLabelPositions = [barWidth + (i * availableWidth) / 3 for i in range(4)]
 
+    # display title of the histogram
     title = Text(Point(120, 30),"Histogram Result")
     title.setSize(18), title.setStyle("bold"),title.draw(window)
     
+    # display total num of outcomes 
     totalMessage = Text(Point(150, windowHeight - 25), f"{sum(values)} outcomes in total.")
     totalMessage.setSize(16), totalMessage.setStyle("bold"),totalMessage.draw(window)
 
+    # draw a bar for each category
     for i, value in enumerate(values):
         drawBar(window, xLabelPositions[i] - barWidth/2, windowHeight - 80, barWidth, value * 10, colors[i], value)
 
+    # draw a labels for each category
     for index, labelText in enumerate(xLabels):
         xLabel = Text(Point(xLabelPositions[index], windowHeight - 60), labelText)
         xLabel.setSize(15), xLabel.setStyle("bold"), xLabel.setTextColor("#3b393a"), xLabel.draw(window)
     
-    yAxisLine = Line(Point(xLabelPositions[0] - barWidth / 2, windowHeight - 81), Point(xLabelPositions[-1] + barWidth /2, windowHeight - 81))
-    yAxisLine.draw(window)
+    # draw a horizontal line for x axis
+    xAxisLine = Line(Point(xLabelPositions[0] - barWidth / 2, windowHeight - 81), Point(xLabelPositions[-1] + barWidth /2, windowHeight - 81))
+    xAxisLine.draw(window)
 
+    # wait for a mouse clcik to close the window
     window.getMouse()
     window.close()
 
-# Part 02 - store the input data in a list & print out
+# Part 02 - function to print the data that stored
 def storedData(storedDataList):
     print("Part 2:")
     for eachData in storedDataList:
         print(eachData)
 
-# Part 03 - input data will write in a file, and displayed after that
+# Part 03 - function to write input data to a file and display from it
 def writeInAFile(storedDataList):
+    # clear the content of the existing datafile / create a new one
     open('dataFile.txt', 'w').close()
     for eachData in storedDataList:
         try:
@@ -126,21 +139,23 @@ def writeInAFile(storedDataList):
         for line in linesOfData:
             print(line.strip())
 
+# Initialization
 eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
 storedDataList = []
 
+# main program
 if versionChoice().upper() == "STUDENT":
     progressionOutcome(None,"STUDENT")
 else: 
     progressionOutcome(eachOutcomesCount)
     
-    # Part 01
+    # Part 01 - histogram
     histogram(eachOutcomesCount)
     
-    # Part 02
+    # Part 02 - print the stored date
     storedData(storedDataList)
     
     print()
     
-    # Part 03
+    # Part 03 - write to file & display
     writeInAFile(storedDataList)
