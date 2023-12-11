@@ -26,7 +26,7 @@ def validation(prompt):
             else: 
                 return int(credit)
         except ValueError:
-            print("Integer required!")
+            print("Integer required")
 
 # Part 1 - Main Function for progression outcome calculation
 def progressionOutcome(eachOutcomesCount,version=None):
@@ -47,9 +47,9 @@ def progressionOutcome(eachOutcomesCount,version=None):
             elif (Pass+Defer) < Fail:
                 output = "Exclude"
             elif Pass == 100 and (Defer==20 or Fail==20):
-                output = "Trailer"
+                output = "Progress (module trailer)"
             elif (Pass in range(0,81,20)) and (Defer in range(0,121,20)) and (Fail in range(0,61,20)):
-                output = "Retriever"
+                output = "Module retriever"
             
             if output is not None:
                 print(output)
@@ -74,9 +74,9 @@ def drawBar(window, x, y, barWidth, barHeight, color, value):
         valueText.setSize(13), valueText.setStyle("bold"), valueText.draw(window)
 
 # Part 1 - without rect bars, function to draw the all the elements for the histogram
-def histogram(eachOutcomesCount):
-    # extract the values & labels 4m the dictionary
-    values, xLabels = list(eachOutcomesCount.values()), list(eachOutcomesCount.keys())
+def displayHistogram(eachOutcomesCount):
+    # extract the values 
+    values, xLabels = list(eachOutcomesCount.values()), ["Progress","Trailer","Retriever","Exclude"]
     colors = ["#79db7c", "#2a782d", "#698729", "#e374c7"]
 
     # calculate necessary dimensions for win, based on the highest bar
@@ -140,22 +140,28 @@ def writeInAFile(storedDataList):
             print(line.strip())
 
 # Initialization
-eachOutcomesCount = {"Progress": 0,"Trailer": 0,"Retriever": 0,"Exclude": 0}
-storedDataList = []
+eachOutcomesCount = {
+    "Progress": 0,
+    "Progress (module trailer)": 0,
+    "Module retriever": 0,
+    "Exclude": 0
+    }
 
 # main program
-if versionChoice().upper() == "STUDENT":
-    progressionOutcome(None,"STUDENT")
-else: 
-    progressionOutcome(eachOutcomesCount)
-    
-    # Part 01 - histogram
-    histogram(eachOutcomesCount)
-    
-    # Part 02 - print the stored date
-    storedData(storedDataList)
-    
-    print()
-    
-    # Part 03 - write to file & display
-    writeInAFile(storedDataList)
+if __name__ == "__main__":
+    storedDataList = []
+    if versionChoice().upper() == "STUDENT":
+        progressionOutcome(None,"STUDENT")
+    else: 
+        progressionOutcome(eachOutcomesCount)
+
+        # Part 01 - histogram
+        displayHistogram(eachOutcomesCount)
+
+        # Part 02 - print the stored date
+        storedData(storedDataList)
+
+        print()
+
+        # Part 03 - write to file & display
+        writeInAFile(storedDataList)
