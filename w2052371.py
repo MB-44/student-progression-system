@@ -10,9 +10,14 @@ print(""" **** STUDENT PROGRESSION SOFTWARE ****\n--Enter 1 for STUDENT version,
 
 # function to get the version choice from the user
 def versionChoice():
-    if input("Select your version: ").strip().upper() == "1":
+    versionInput = input("Select your version: ").strip().upper()
+    if versionInput == "1":
         return "student"
-    return "staff"
+    elif versionInput == "2":
+        return "staff"
+    else: 
+        print("Invalid Version")
+        return versionChoice()
 
 # Part 1 - function for input validation
 def validation(prompt):
@@ -29,7 +34,7 @@ def validation(prompt):
             print("Integer required")
 
 # Part 1 - Main Function for progression outcome calculation
-def progressionOutcome(eachOutcomesCount,version=None):
+def progressionOutcome(storedDataList,eachOutcomesCount,version=None):
         while True:
             Pass = validation("Enter your credits at Pass: ")
             Defer = validation("Enter your credits at Defer: ")
@@ -76,7 +81,8 @@ def drawBar(window, x, y, barWidth, barHeight, color, value):
 # Part 1 - without rect bars, function to draw the all the elements for the histogram
 def displayHistogram(eachOutcomesCount):
     # extract the values 
-    values, xLabels = list(eachOutcomesCount.values()), ["Progress","Trailer","Retriever","Exclude"]
+    values = list(eachOutcomesCount.values()) 
+    xLabels = ["Progress","Trailer","Retriever","Exclude"]
     colors = ["#79db7c", "#2a782d", "#698729", "#e374c7"]
 
     # calculate necessary dimensions for win, based on the highest bar
@@ -126,9 +132,8 @@ def writeInAFile(storedDataList):
     open('dataFile.txt', 'w').close()
     for eachData in storedDataList:
         try:
-            with open("dataFile.txt"):
-                with open("dataFile.txt","a") as dataFile:
-                    dataFile.write(eachData.strip()+"\n")
+            with open("dataFile.txt","a") as dataFile:
+                dataFile.write(eachData.strip()+"\n")
         except IOError:
             with open("dataFile.txt",'w') as dataFile:
                 dataFile.write(eachData.strip()+"\n")
@@ -147,21 +152,21 @@ eachOutcomesCount = {
     "Exclude": 0
     }
 
-# main program
+# starts here
 if __name__ == "__main__":
     storedDataList = []
     if versionChoice().upper() == "STUDENT":
-        progressionOutcome(None,"STUDENT")
+        progressionOutcome(None,None,"STUDENT")
+
     else: 
-        progressionOutcome(eachOutcomesCount)
+        progressionOutcome(storedDataList,eachOutcomesCount)
 
         # Part 01 - histogram
         displayHistogram(eachOutcomesCount)
 
+        print()
         # Part 02 - print the stored date
         storedData(storedDataList)
-
         print()
-
         # Part 03 - write to file & display
         writeInAFile(storedDataList)
