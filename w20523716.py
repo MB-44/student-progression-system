@@ -79,13 +79,16 @@ def drawBar(window, x, y, barWidth, barHeight, color, value):
         valueText.setSize(13), valueText.setStyle("bold"), valueText.draw(window)
 
 # Part 1 - without rect bars, function to draw the all the elements for the histogram
+# I change the window height based on the maximum count, 
+# because If height is given then maximum count reach that height, it won't display correctly
 def displayHistogram(eachOutcomesCount):
+
     # extract the values 
     values = list(eachOutcomesCount.values()) 
     xLabels = ["Progress","Trailer","Retriever","Exclude"]
     colors = ["#79db7c", "#2a782d", "#698729", "#e374c7"]
 
-    # calculate necessary dimensions for win, based on the highest bar
+    # calculate necessary dimensions for window, based on the highest bar
     maxValue, barWidth = max(values), 80
     windowWidth, windowHeight = 600, max(450, maxValue*10+100)
 
@@ -128,13 +131,14 @@ def storedData(storedDataList):
 
 # Part 03 - function to write input data to a file and display from it
 def writeInAFile(storedDataList):
+
     # clear the content of the existing datafile / create a new one
     open('dataFile.txt', 'w').close()
     for eachData in storedDataList:
         try:
             with open("dataFile.txt","a") as dataFile:
                 dataFile.write(eachData.strip()+"\n")
-        except IOError:
+        except FileNotFoundError:
             with open("dataFile.txt",'w') as dataFile:
                 dataFile.write(eachData.strip()+"\n")
     
@@ -144,16 +148,15 @@ def writeInAFile(storedDataList):
         for line in linesOfData:
             print(line.strip())
 
-# Initialization
-eachOutcomesCount = {
-    "Progress": 0,
-    "Progress (module trailer)": 0,
-    "Module retriever": 0,
-    "Exclude": 0
-    }
-
 # starts here
 if __name__ == "__main__":
+
+    eachOutcomesCount = {
+        "Progress": 0,
+        "Progress (module trailer)": 0,
+        "Module retriever": 0,
+        "Exclude": 0
+    }
     storedDataList = []
     if versionChoice().upper() == "STUDENT":
         progressionOutcome(None,None,"STUDENT")
@@ -163,10 +166,11 @@ if __name__ == "__main__":
 
         # Part 01 - histogram
         displayHistogram(eachOutcomesCount)
-
         print()
+
         # Part 02 - print the stored date
         storedData(storedDataList)
         print()
+
         # Part 03 - write to file & display
         writeInAFile(storedDataList)
