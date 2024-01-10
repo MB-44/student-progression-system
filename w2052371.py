@@ -120,8 +120,11 @@ def displayHistogram(eachOutcomesCount):
     xAxisLine.draw(window)
 
     # wait for a mouse clcik to close the window
-    window.getMouse()
-    window.close()
+    try:
+        window.getMouse()
+        window.close()
+    except GraphicsError:
+        pass
 
 # Part 02 - function to print the data that stored
 def storedData(storedDataList):
