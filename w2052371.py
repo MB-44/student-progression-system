@@ -102,7 +102,7 @@ def displayHistogram(eachOutcomesCount):
     title = Text(Point(120, 30),"Histogram Result")
     title.setSize(18), title.setStyle("bold"),title.draw(window)
     
-    # display total num of outcomes 
+    # display total num of outcomes
     totalMessage = Text(Point(150, windowHeight - 25), f"{sum(values)} outcomes in total.")
     totalMessage.setSize(16), totalMessage.setStyle("bold"),totalMessage.draw(window)
 
